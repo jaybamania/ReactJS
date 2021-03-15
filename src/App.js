@@ -6,8 +6,9 @@ import PostForm from './Components/PostForm';
 function App() {
   return (
     <div className="App">
-      {/* <PostList /> */}
+      
       <PostForm />
+      <PostList />
     </div>
   );
 }
