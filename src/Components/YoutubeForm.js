@@ -6,7 +6,9 @@ import * as Yup from 'yup'
 const initialValues = {
     name:'jaykumar',
     email:'',
-    channel:''
+    channel:'',
+    comments : '',
+    address: ''
 }
 
 const onSubmit = values =>{
@@ -20,7 +22,8 @@ const validationSchema = Yup.object({
     email : Yup.string()
         .email('Invalid Email Fromat!')
         .required('Required!'),
-    channel : Yup.string().required('Required!')
+    channel : Yup.string().required('Required!'),
+    address : Yup.string().required('Required!')
 })
 
 function YoutubeForm() {
@@ -49,6 +52,28 @@ function YoutubeForm() {
                 <div className='form-control'>
                     <label htmlFor='channel'>Channel</label>
                     <Field type='text' id='channel' name='channel' />
+                    <ErrorMessage name='channel' />
+                </div>
+                <div className='form-control'>
+                    <label htmlFor='comments'>Comments</label>
+                    <Field as='textarea' type='text' id='comments' name='comments' />
+                    
+                </div>
+                <div className='form-control'>
+                    <label htmlFor='address'>Address</label>
+                    <Field name='address' >
+                        {/* Render Props Pattern */}
+                        {
+                            (props) =>{
+                                const {field,form,meta} = props
+                                console.log('Render Props',props)
+                                return  <div>
+                                    <input type="text" id='address' {...field} />
+                                    {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                                </div>
+                            }
+                        }
+                        </Field>
                     <ErrorMessage name='channel' />
                 </div>
                 <button type='submit'>Submit</button>
