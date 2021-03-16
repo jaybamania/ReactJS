@@ -44,6 +44,7 @@ function YoutubeForm() {
             initialValues = {initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
+            
         >
             <Form>
                 <div className='form-control'>
@@ -72,20 +73,20 @@ function YoutubeForm() {
                 </div>
                 <div className='form-control'>
                     <label htmlFor='address'>Address</label>
-                    <FastField name='address' >
+                    <Field name='address' >
                         {/* Render Props Pattern */}
                         {
                             (props) =>{
-                                console.log('Field Render')
+                                // console.log('Field Render')
                                 const {field,form,meta} = props
-                                console.log('Render Props',props)
+                                // console.log('Render Props',props)
                                 return  <div>
                                     <input type="text" id='address' {...field} />
                                     {meta.touched && meta.error ? <div>{meta.error}</div> : null}
                                 </div>
                             }
                         }
-                        </FastField>
+                        </Field>
                     <ErrorMessage name='channel' />
                 </div>
                 <div className='form-control'>
@@ -117,13 +118,14 @@ function YoutubeForm() {
                                 const {push, remove, form} = fieldArrayProps
                                 const {values} = form
                                 const {phNumbers} = values
+                                console.log('Form Errors',form.errors)
                                 return <div>
                                     {
                                         phNumbers.map((phNumber,index) =>(
                                             <div key={index}>
                                                 <Field name={`phNumbers[${index}]`} />
-                                                { index > 0 && 
-                                                <button type='button' onClick={() => remove(index)} > - </button>
+                                                { index > 0 ?
+                                                <button type='button' onClick={() => remove(index)} > - </button>:null
                                                 }
                                                 <button type='button' onClick={() => push('')}> + </button>
                                             </div>
