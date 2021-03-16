@@ -1,5 +1,5 @@
 
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
 import TextError from './TextError'
@@ -14,7 +14,8 @@ const initialValues = {
         facebook : '',
         twitter: ''
     },
-    phoneNumbers : ['','']
+    phoneNumbers : ['',''],
+    phNumbers :['']
 }
 
 const onSubmit = values =>{
@@ -90,18 +91,49 @@ function YoutubeForm() {
                     <label htmlFor='facebook'>Facebook Profile</label>
                     <Field type='text' id='facebook' name='social.facebook' />
                 </div>
+
                 <div className='form-control'>
                     <label htmlFor='twitter'>Twitter Profile</label>
                     <Field type='text' id='twitter' name='social.twitter' />
                 </div>
+
                 <div className='form-control'>
                     <label htmlFor='primaryPh'>Primary phone Number</label>
                     <Field type='text' id='primaryPh' name='phoneNumbers[0]' />
                 </div>
+
                 <div className='form-control'>
                     <label htmlFor='secondaryPh'>Secondary phone Number</label>
                     <Field type='text' id='secondaryPh' name='phoneNumbers[1]' />
                 </div>
+
+                <div className='form-control'>
+                    <label htmlFor='secondaryPh'>Secondary phone Number</label>
+                    <FieldArray name='phNumbers'>
+                        {
+                            (fieldArrayProps)=>{
+                                console.log('fieldArrayProps',fieldArrayProps)
+                                const {push, remove, form} = fieldArrayProps
+                                const {values} = form
+                                const {phNumbers} = values
+                                return <div>
+                                    {
+                                        phNumbers.map((phNumber,index) =>(
+                                            <div key={index}>
+                                                <Field name={`phNumbers[${index}]`} />
+                                                { index > 0 && 
+                                                <button type='button' onClick={() => remove(index)} > - </button>
+                                                }
+                                                <button type='button' onClick={() => push('')}> + </button>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            }
+                        }
+                    </FieldArray>
+                </div>
+
                 <button type='submit'>Submit</button>
             </Form>
         </Formik>
