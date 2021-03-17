@@ -18,8 +18,10 @@ const initialValues = {
     phNumbers :['']
 }
 
-const onSubmit = values =>{
+const onSubmit = (values,onSubmitting) =>{
     console.log('Form Data : ',values)
+    console.log('OnSubmitting Props : ',onSubmitting)
+    onSubmitting.setSubmitting(false)
 }
 
 
@@ -55,6 +57,7 @@ function YoutubeForm() {
             onSubmit={onSubmit}
             // validateOnChange={false}
             // validateOnBlur={false}
+            // validateOnMount
         >
             {
                 formik =>{
@@ -159,7 +162,10 @@ function YoutubeForm() {
                             channel : true,
                             comments : true
                         })}>visit fields</button>
-                        <button type='submit'>Submit</button>
+                        <button type='submit' disabled={(
+                            // formik.dirty && 
+                            !formik.isValid ||
+                            formik.isSubmitting)}>Submit</button>
                     </Form>
                     )
                 }
