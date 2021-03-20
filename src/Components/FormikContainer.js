@@ -2,9 +2,21 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 
 import * as Yup from 'yup'
-import FromikControl from './FromikControl'
+import FormikControl from './FormikControl'
 
 function FormikContainer() {
+    const checkBoxOptions = [
+        { key : 'Javascript' , value:'c1'},
+        { key : 'Python' , value : 'c2'},
+        { key : 'C++' , value : 'c3'},
+        { key : 'Java' , value : 'c4'}
+    ]
+    const radioButtonOptions = [
+        { key : 'Javascript' , value:'r1'},
+        { key : 'Python' , value : 'r2'},
+        { key : 'C++' , value : 'r3'},
+        { key : 'Java' , value : 'r4'}
+    ]
     const dropdownOptions = [
         { key : 'Select an option' , value:''},
         { key : 'Car' , value:'1'},
@@ -15,12 +27,16 @@ function FormikContainer() {
     const initialValues = {
         email:'',
         description:'',
-        selectOption : ''
+        selectOption : '',
+        radioOptions:'',
+        checkBoxOption:[],
     }
     const validationSchema = Yup.object({
         email : Yup.string().required('Required'),
         description : Yup.string().required('Required'),
-        selectOption : Yup.string().required('Required')
+        selectOption : Yup.string().required('Required'),
+        radioOptions : Yup.string().required('Required'),
+        checkBoxOption : Yup.array().required('Required')
     })
     const onSubmit = values => console.log('Form data',values)
     return (
@@ -31,22 +47,34 @@ function FormikContainer() {
         >
             {
                 formik => <Form>
-                    <FromikControl 
+                    <FormikControl 
                         control='input' 
                         type='email' 
                         label='Email' 
                         name='email' 
                     />
-                    <FromikControl 
+                    <FormikControl 
                         control='textarea'  
                         label='Description' 
                         name='description'
                     />
-                    <FromikControl 
+                    <FormikControl 
                         control='select'  
                         label='Select the vechicle' 
                         name='selectOption'
                         options={dropdownOptions}
+                    />
+                    <FormikControl 
+                        control='radio'  
+                        label='Select One topic' 
+                        name='radioOptions'
+                        options={radioButtonOptions}
+                    />
+                    <FormikControl 
+                        control='checkbox'  
+                        label='Pick you best choices' 
+                        name='checkBoxOption'
+                        options={checkBoxOptions}
                     />
                     <button type='submit'>Submit</button>
                 </Form>
