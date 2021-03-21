@@ -21,13 +21,9 @@ function FormikControl(props) {
             return <CheckBoxGroup {...rest} />
         case 'date':
             return <DatePicker {...rest} />
-            default : return null   
+        default :
+            return null   
     }
-    return (
-        <div>
-            
-        </div>
-    )
 }
 
 export default FormikControl
