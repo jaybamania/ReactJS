@@ -60,7 +60,7 @@ function EnrollmentForm() {
                             options={courseSelection}
                         />
                         <FormikControl
-                            control='checkbox'
+                            control='chakracheckbox'
                             label='Skill Set'
                             name='skillset'
                             options={skillsetSelection}
